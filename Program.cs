@@ -5,7 +5,8 @@ internal class Program
     static void Main(string[] args)
     {
         {
-            Console.WriteLine("------- Start av programmet ***********");
+                Console.WriteLine("=== Start av programmet ===");
+                Console.WriteLine("Hello, World!");
 
             try
             {
@@ -36,7 +37,7 @@ internal class Program
             }
             finally
             {
-           
+
                 Console.WriteLine("Cleanup: Logging avslutat anrop.");
             }
 
