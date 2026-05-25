@@ -1,9 +1,21 @@
+<<<<<<< HEAD
 ﻿namespace ExceptionsDemo {
     internal class Program {
         static void Main(string[] args) {
             {
-                Console.WriteLine("=== Start av programmet ===");
+=======
+﻿namespace ExceptionsDemo;
 
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        {
+>>>>>>> master
+                Console.WriteLine("=== Start av programmet ===");
+                Console.WriteLine("Hello, World!");
+
+<<<<<<< HEAD
                 // Exempel 1: try-catch-finally
                 try {
                     Console.WriteLine("Försöker läsa fil och räkna...");
@@ -27,10 +39,42 @@
                     // Körs ALLTID, även om det blev undantag
                     Console.WriteLine("Cleanup: Logging avslutat anrop.");
                 }
+=======
+            try
+            {
+                Console.WriteLine("Försöker läsa fil och räkna...");
+                var path = Path.Combine(AppContext.BaseDirectory, "numbers.txt");
+                var result = ProcessFile(path);
+              
+                Console.WriteLine($"\nResultat: {result}");
+            }
+            catch (FileNotFoundException ex)
+            {
+               
+                Console.WriteLine($"Filen hittades inte: {ex.Message}");
+            }
+            catch (FormatException ex)
+            {
+               
+                Console.WriteLine($"Formatfel: {ex.Message}");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine($"Kan inte dividera med noll: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+              
+                Console.WriteLine($"Okänt fel: {ex.Message}");
+            }
+            finally
+            {
+>>>>>>> master
 
-                Console.WriteLine("Programmet avslutas normalt.");
+                Console.WriteLine("Cleanup: Logging avslutat anrop.");
             }
 
+<<<<<<< HEAD
             // Exempel på metod som själv kastar ett undantag (throw)
             static double ProcessFile(string fileName) {
                 // Om filnamnet är tomt: logiskt fel vi vill signalera
@@ -41,14 +85,34 @@
                 StreamReader? reader = null;
                 try {
                     reader = new StreamReader(fileName);
+=======
+            Console.WriteLine("Programmet avslutas normalt.");
+        }
 
-                    string? line = reader.ReadLine();
-                    if (line == null)
-                        throw new InvalidOperationException("Filen är tom.");
+     
+        static double ProcessFile(string fileName)
+        {
+           
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                // Om filnamnet är tomt: logiskt fel vi vill signalera
+                throw new ArgumentException("Filnamn får inte vara tomt (eller null).", nameof(fileName));
+            }
 
-                    // Försöker omvandla text till tal
-                    int number = int.Parse(line); // Kan ge FormatException
+            StreamReader? reader = null;
+            try
+            {
+                reader = new StreamReader(fileName);
+>>>>>>> master
 
+                string? line = reader.ReadLine();
+                if (line == null)
+                    throw new InvalidOperationException("Filen är tom.");
+
+             
+                int number = int.Parse(line); 
+
+<<<<<<< HEAD
                     // Division: kan ge DivideByZeroException
                     return 100.0 / number;
                 } catch (FormatException ex) {
@@ -68,6 +132,32 @@
                     reader?.Close();
                     Console.WriteLine("finally i ProcessFile: StreamReader stängd.");
                 }
+=======
+            
+                return 100.0 / number;
+            }
+            catch (FormatException ex)
+            {
+                
+                Console.WriteLine($"Formatfel i ProcessFile: {ex.Message}");
+                // Vi kan välja att låta metoden "kasta upp" felet
+                throw; // När du i `catch` bara vill logga/analysera,
+                       // men låta anroparen (t.ex. en högre nivå i applikationen)
+                       // bestämma hur man ska återhämta sig. 
+            }
+            catch (Exception ex)
+            {
+                // Om vi vill ge en mer meningsfull feltyp till anroparen
+                throw new InvalidOperationException(
+                "Det gick inte att processa filen.",
+                ex); // InnerException = ursprunglig fel
+            }
+            finally
+            {
+                // Garanterad stängning av resurs
+                reader?.Close();
+                Console.WriteLine("finally i ProcessFile: StreamReader stängd.");
+>>>>>>> master
             }
         }
     }
