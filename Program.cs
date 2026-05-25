@@ -51,7 +51,7 @@
                 // Om filnamnet är tomt: logiskt fel vi vill signalera
                 if (string.IsNullOrWhiteSpace(fileName))
                 {
-                    throw new ArgumentException("Filnamn får inte vara tomt eller null.", nameof(fileName));
+                    throw new ArgumentException("Filnamn får inte vara tomt (eller null).", nameof(fileName));
                 }
 
                 StreamReader? reader = null;
