@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+﻿namespace ExceptionsDemo {
+    internal class Program {
+        static void Main(string[] args) {
+            {
+=======
 ﻿namespace ExceptionsDemo;
 
 internal class Program
@@ -5,9 +11,35 @@ internal class Program
     static void Main(string[] args)
     {
         {
+>>>>>>> master
                 Console.WriteLine("=== Start av programmet ===");
                 Console.WriteLine("Hello, World!");
 
+<<<<<<< HEAD
+                // Exempel 1: try-catch-finally
+                try {
+                    Console.WriteLine("Försöker läsa fil och räkna...");
+                    var path = Path.Combine(AppContext.BaseDirectory, "numbers.txt");
+                    var result = ProcessFile(path);
+
+                    Console.WriteLine($"\nResultat: {result}");
+                } catch (FileNotFoundException ex) {
+                    // Specifikt fel om filen inte finns
+                    Console.WriteLine($"Filen hittades inte, leta någon annanstans: {ex.Message}");
+                } catch (FormatException ex) {
+                    // Specifikt fel om texten inte kan tolkas som tal
+                    Console.WriteLine($"Formatfel: {ex.Message}");
+                } catch (DivideByZeroException ex) {
+                    // Specifikt fel om nolldivision
+                    Console.WriteLine($"Kan inte dividera med noll: {ex.Message}");
+                } catch (Exception ex) {
+                    // Fallback för alla övriga obekanta fel
+                    Console.WriteLine($"Okänt fel: {ex.Message}");
+                } finally {
+                    // Körs ALLTID, även om det blev undantag
+                    Console.WriteLine("Cleanup: Logging avslutat anrop.");
+                }
+=======
             try
             {
                 Console.WriteLine("Försöker läsa fil och räkna...");
@@ -37,10 +69,23 @@ internal class Program
             }
             finally
             {
+>>>>>>> master
 
                 Console.WriteLine("Cleanup: Logging avslutat anrop.");
             }
 
+<<<<<<< HEAD
+            // Exempel på metod som själv kastar ett undantag (throw)
+            static double ProcessFile(string fileName) {
+                // Om filnamnet är tomt: logiskt fel vi vill signalera
+                if (string.IsNullOrWhiteSpace(fileName)) {
+                    throw new ArgumentException("Filnamn får inte vara tomt eller null.", nameof(fileName));
+                }
+
+                StreamReader? reader = null;
+                try {
+                    reader = new StreamReader(fileName);
+=======
             Console.WriteLine("Programmet avslutas normalt.");
         }
 
@@ -58,6 +103,7 @@ internal class Program
             try
             {
                 reader = new StreamReader(fileName);
+>>>>>>> master
 
                 string? line = reader.ReadLine();
                 if (line == null)
@@ -66,6 +112,27 @@ internal class Program
              
                 int number = int.Parse(line); 
 
+<<<<<<< HEAD
+                    // Division: kan ge DivideByZeroException
+                    return 100.0 / number;
+                } catch (FormatException ex) {
+                    // Vi kan logga eller omformulera felet
+                    Console.WriteLine($"Formatfel i ProcessFile: {ex.Message}");
+                    // Vi kan välja att låta metoden "kasta upp" felet
+                    throw; // När du i `catch` bara vill logga/analysera,
+                           // men låta anroparen (t.ex. en högre nivå i applikationen)
+                           // bestämma hur man ska återhämta sig. 
+                } catch (Exception ex) {
+                    // Om vi vill ge en mer meningsfull feltyp till anroparen
+                    throw new InvalidOperationException(
+                    "Det gick inte att processa filen.",
+                    ex); // InnerException = ursprunglig fel
+                } finally {
+                    // Garanterad stängning av resurs
+                    reader?.Close();
+                    Console.WriteLine("finally i ProcessFile: StreamReader stängd.");
+                }
+=======
             
                 return 100.0 / number;
             }
@@ -90,6 +157,7 @@ internal class Program
                 // Garanterad stängning av resurs
                 reader?.Close();
                 Console.WriteLine("finally i ProcessFile: StreamReader stängd.");
+>>>>>>> master
             }
         }
     }
