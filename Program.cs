@@ -6,6 +6,7 @@
         {
             {
                 Console.WriteLine("=== Start av programmet ===");
+                Console.WriteLine("Hello, World!");
 
                 // Exempel 1: try-catch-finally
                 try
